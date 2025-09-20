@@ -1,0 +1,132 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz — Standard téléphonique</title>
+<style>
+:root{
+  --lcp-primary:#1f4e79;
+  --lcp-accent:#f2c811;
+  --lcp-bg:#f7fafc;
+  --lcp-text:#0f172a;
+  --radius:10px;
+  --shadow:0 4px 12px rgba(16,24,40,.08);
+}
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
+  background:var(--lcp-bg);
+  margin:0;
+  color:var(--lcp-text);
+}
+.container{max-width:900px;margin:0 auto;padding:16px}
+.card{
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  margin:18px 0;
+}
+h1,h2{color:var(--lcp-primary)}
+button{
+  background:var(--lcp-primary);
+  color:#fff;
+  border:none;
+  border-radius:var(--radius);
+  padding:8px 14px;
+  margin-top:10px;
+  cursor:pointer;
+}
+button:hover{background:#163958}
+.answer{display:none;margin-top:12px;padding:10px;background:#eef6ff;border-left:4px solid var(--lcp-accent);border-radius:6px}
+ul{margin:10px 0 10px 20px}
+li{margin:6px 0}
+</style>
+
+<script>
+function toggleAnswer(id){
+  const ans=document.getElementById(id);
+  ans.style.display=(ans.style.display==="none"||ans.style.display==="")?"block":"none";
+}
+</script>
+
+<main class="container">
+
+  <h1>Quiz — Les fonctionnalités d’un standard téléphonique</h1>
+  <p>Évalue tes connaissances en répondant aux questions. Clique sur <strong>« Voir la réponse »</strong> pour vérifier.</p>
+
+  <div class="card">
+    <h2>3) Quels sont les types de standard existants ?</h2>
+    <ul>
+      <li>PABX et IPBX</li>
+      <li>PABX et PIBX</li>
+    </ul>
+    <button onclick="toggleAnswer('rep3')">Voir la réponse</button>
+    <div id="rep3" class="answer">
+      ✅ Réponse : <strong>PABX et IPBX</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>4) Quelle est la caractéristique première d’un standard ?</h2>
+    <ul>
+      <li>Avoir un serveur vocal interactif</li>
+      <li>Avoir un numéro unique</li>
+      <li>Avoir une musique d’attente</li>
+    </ul>
+    <button onclick="toggleAnswer('rep4')">Voir la réponse</button>
+    <div id="rep4" class="answer">
+      ✅ Réponse : <strong>Avoir un numéro unique</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>5) Au bout de combien de sonneries devez-vous répondre ?</h2>
+    <ul>
+      <li>Dès la 1ère sonnerie</li>
+      <li>À la fin de la 2ème sonnerie</li>
+      <li>Après la 3ème sonnerie</li>
+    </ul>
+    <button onclick="toggleAnswer('rep5')">Voir la réponse</button>
+    <div id="rep5" class="answer">
+      ✅ Réponse : <strong>À la fin de la 2ème sonnerie</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>6) Quelles sont les fonctionnalités principales d’un standard ? (plusieurs réponses possibles)</h2>
+    <ul>
+      <li>Gérer des appels simultanés</li>
+      <li>Activer des fonctions de filtrage</li>
+      <li>Établir des statistiques</li>
+      <li>Enregistrer la communication</li>
+    </ul>
+    <button onclick="toggleAnswer('rep6')">Voir la réponse</button>
+    <div id="rep6" class="answer">
+      ✅ Réponses :  
+      - <strong>Gérer des appels simultanés</strong>  
+      - <strong>Activer des fonctions de filtrage</strong>  
+      - <strong>Enregistrer la communication</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>7) Quelles sont les caractéristiques du « mode secret » ?</h2>
+    <ul>
+      <li>Il permet de vous isoler de votre correspondant</li>
+      <li>Il permet d’arrêter l’enregistrement pour passer en mode confidentiel</li>
+      <li>Il permet d’appeler anonymement pour éviter les filtrages</li>
+    </ul>
+    <button onclick="toggleAnswer('rep7')">Voir la réponse</button>
+    <div id="rep7" class="answer">
+      ✅ Réponse : <strong>Il permet de vous isoler de votre correspondant</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>8) Pensez-vous avoir des connaissances suffisantes pour manipuler un standard téléphonique ?</h2>
+    <p>(Question d’auto-évaluation, pas de bonne ou mauvaise réponse)</p>
+    <button onclick="toggleAnswer('rep8')">Voir la réponse</button>
+    <div id="rep8" class="answer">
+      💡 Cette question est personnelle. L’important est de repérer ce qu’il te reste à approfondir.
+    </div>
+  </div>
+
+</main>
