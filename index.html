@@ -1,42 +1,40 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quiz — Standard téléphonique</title>
+<title>Quiz Standard téléphonique</title>
 <style>
 :root{
-  --lcp-primary:#1f4e79;
-  --lcp-accent:#f2c811;
-  --lcp-bg:#f7fafc;
-  --lcp-text:#0f172a;
-  --radius:10px;
-  --shadow:0 4px 12px rgba(16,24,40,.08);
+  --primary:#1f4e79;
+  --accent:#f2c811;
+  --bg:#f7fafc;
+  --text:#0f172a;
 }
 body{
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
-  background:var(--lcp-bg);
+  font-family:Arial, sans-serif;
+  background:var(--bg);
   margin:0;
-  color:var(--lcp-text);
+  color:var(--text);
 }
 .container{max-width:900px;margin:0 auto;padding:16px}
 .card{
   background:#fff;
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
   padding:20px;
   margin:18px 0;
 }
-h1,h2{color:var(--lcp-primary)}
+h1,h2{color:var(--primary)}
 button{
-  background:var(--lcp-primary);
+  background:var(--primary);
   color:#fff;
   border:none;
-  border-radius:var(--radius);
+  border-radius:6px;
   padding:10px 16px;
   margin-top:12px;
   cursor:pointer;
 }
 button:hover{background:#163958}
 .result{
-  margin-top:12px;
+  margin-top:10px;
   padding:10px;
   border-radius:6px;
   display:none;
@@ -46,7 +44,7 @@ button:hover{background:#163958}
 #scoreBox{
   background:#eef6ff;
   padding:16px;
-  border-radius:var(--radius);
+  border-radius:8px;
   margin-top:20px;
   text-align:center;
   font-weight:bold;
@@ -58,7 +56,7 @@ button:hover{background:#163958}
 <main class="container">
 
   <h1>Quiz — Les fonctionnalités d’un standard téléphonique</h1>
-  <p>Coche la ou les bonnes réponses, puis clique sur <strong>Valider</strong> pour corriger.</p>
+  <p>Coche tes réponses puis clique sur <strong>Valider</strong>.</p>
 
   <form id="quizForm">
 
@@ -97,8 +95,8 @@ button:hover{background:#163958}
     <div class="card">
       <h2>7) Quelles sont les caractéristiques du « mode secret » ?</h2>
       <label><input type="radio" name="q7" value="A"> Il permet de vous isoler de votre correspondant</label><br>
-      <label><input type="radio" name="q7" value="B"> Il permet d’arrêter l’enregistrement pour passer en mode confidentiel</label><br>
-      <label><input type="radio" name="q7" value="C"> Il permet d’appeler anonymement pour éviter les filtrages</label>
+      <label><input type="radio" name="q7" value="B"> Il permet d’arrêter l’enregistrement</label><br>
+      <label><input type="radio" name="q7" value="C"> Il permet d’appeler anonymement</label>
       <div id="res7" class="result"></div>
     </div>
 
@@ -119,56 +117,54 @@ button:hover{background:#163958}
 <script>
 function corriger(){
   let score=0;
-  let total=5; // nb de Q avec bonne/mauvaise réponse (Q8 exclue car subjective)
+  let total=5; // Q3 à Q7 inclus (Q8 = subjective)
 
   // Q3
   let q3=document.querySelector('input[name="q3"]:checked');
   if(q3){
-    if(q3.value==="A"){score++; document.getElementById("res3").innerHTML="Bonne réponse !"; document.getElementById("res3").className="result correct";}
-    else{document.getElementById("res3").innerHTML="Mauvaise réponse. Réponse correcte : PABX et IPBX"; document.getElementById("res3").className="result incorrect";}
-    document.getElementById("res3").style.display="block";
+    if(q3.value==="A"){score++; setResult("res3","Bonne réponse !","correct");}
+    else{setResult("res3","Mauvaise réponse. Réponse : PABX et IPBX","incorrect");}
   }
 
   // Q4
   let q4=document.querySelector('input[name="q4"]:checked');
   if(q4){
-    if(q4.value==="B"){score++; document.getElementById("res4").innerHTML="Bonne réponse !"; document.getElementById("res4").className="result correct";}
-    else{document.getElementById("res4").innerHTML="Mauvaise réponse. Réponse correcte : Avoir un numéro unique"; document.getElementById("res4").className="result incorrect";}
-    document.getElementById("res4").style.display="block";
+    if(q4.value==="B"){score++; setResult("res4","Bonne réponse !","correct");}
+    else{setResult("res4","Mauvaise réponse. Réponse : Avoir un numéro unique","incorrect");}
   }
 
   // Q5
   let q5=document.querySelector('input[name="q5"]:checked');
   if(q5){
-    if(q5.value==="B"){score++; document.getElementById("res5").innerHTML="Bonne réponse !"; document.getElementById("res5").className="result correct";}
-    else{document.getElementById("res5").innerHTML="Mauvaise réponse. Réponse correcte : À la fin de la 2ème sonnerie"; document.getElementById("res5").className="result incorrect";}
-    document.getElementById("res5").style.display="block";
+    if(q5.value==="B"){score++; setResult("res5","Bonne réponse !","correct");}
+    else{setResult("res5","Mauvaise réponse. Réponse : À la fin de la 2ème sonnerie","incorrect");}
   }
 
   // Q6 (multi)
   let q6=document.querySelectorAll('input[name="q6"]:checked');
-  let vals=[...q6].map(el=>el.value);
-  let good=["A","B","D"];
-  if(vals.length>0){
-    if(JSON.stringify(vals.sort())===JSON.stringify(good)){
-      score++; document.getElementById("res6").innerHTML="Bonne réponse !"; document.getElementById("res6").className="result correct";
-    } else {
-      document.getElementById("res6").innerHTML="Mauvaise réponse. Réponses correctes : Gérer des appels simultanés, Activer des fonctions de filtrage, Enregistrer la communication"; 
-      document.getElementById("res6").className="result incorrect";
-    }
-    document.getElementById("res6").style.display="block";
+  let vals=[...q6].map(el=>el.value).sort().join("");
+  let good="ABD";
+  if(vals){
+    if(vals===good){score++; setResult("res6","Bonne réponse !","correct");}
+    else{setResult("res6","Mauvaise réponse. Réponses : Gérer des appels simultanés, Activer des fonctions de filtrage, Enregistrer la communication","incorrect");}
   }
 
   // Q7
   let q7=document.querySelector('input[name="q7"]:checked');
   if(q7){
-    if(q7.value==="A"){score++; document.getElementById("res7").innerHTML="Bonne réponse !"; document.getElementById("res7").className="result correct";}
-    else{document.getElementById("res7").innerHTML="Mauvaise réponse. Réponse correcte : Il permet de vous isoler de votre correspondant"; document.getElementById("res7").className="result incorrect";}
-    document.getElementById("res7").style.display="block";
+    if(q7.value==="A"){score++; setResult("res7","Bonne réponse !","correct");}
+    else{setResult("res7","Mauvaise réponse. Réponse : Il permet de vous isoler de votre correspondant","incorrect");}
   }
 
   // Score final
   document.getElementById("scoreBox").style.display="block";
   document.getElementById("scoreBox").innerHTML="Ton score : "+score+" / "+total;
+}
+
+function setResult(id,text,type){
+  let el=document.getElementById(id);
+  el.style.display="block";
+  el.innerHTML=text;
+  el.className="result "+type;
 }
 </script>
